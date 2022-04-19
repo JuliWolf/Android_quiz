@@ -11,7 +11,11 @@
       android:theme="@style/Theme.Android_quiz">
     <activity
         android:name=".MainActivity"
-        android:exported="true">
+        android:exported="true"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.NoActionBarTheme"
+        android:windowSoftInputMode="adjustResize"
+    >
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
