@@ -7,18 +7,16 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_result.*
 
-class MainActivity : AppCompatActivity() {
-    @RequiresApi(Build.VERSION_CODES.R)
+class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_result)
 
         if (Build.VERSION.SDK_INT < 16) {
-            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         } else {
             val controller = window.insetsController
@@ -26,15 +24,15 @@ class MainActivity : AppCompatActivity() {
             controller?.hide(WindowInsets.Type.statusBars())
         }
 
-        btn_start.setOnClickListener {
-            if (et_name.text.toString().isEmpty()) {
-                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
+        val userName = intent.getStringExtra(Constants.USER_NAME)
+        tv_name.text = userName
 
-            val intent = Intent(this, QuizQuestionsActivity::class.java)
-            intent.putExtra(Constants.USER_NAME, et_name.text.toString())
-            startActivity(intent)
+        val totalQuestions = intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)
+        val correctAnswers = intent.getIntExtra(Constants.CORRECT_ANSWERS, 0)
+
+        tv_score.text = "You Score is $correctAnswers out of $totalQuestions"
+        btn_finish.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }

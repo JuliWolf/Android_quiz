@@ -1,6 +1,10 @@
 package com.example.android_quiz
 
 object Constants {
+
+    const val USER_NAME: String = "use_name"
+    const val TOTAL_QUESTIONS: String = "total_uestions"
+    const val CORRECT_ANSWERS: String = "correct_answers"
     fun getQuestions(): ArrayList<Question> {
         val questionsList = ArrayList<Question>()
 
